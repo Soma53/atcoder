@@ -1,0 +1,44 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "type": "shell",
+        "label": "g++ build active file",
+        "command": "/bin/g++",
+        "args": [
+          "-g",
+          "${file}",
+          "-I /lib/ac-library",
+          "-I /root/library/ac-library",
+          "-o",
+          "${workspaceFolder}/problem"
+        ],
+        "options": {
+          "cwd": "/bin"
+        },
+        "problemMatcher": [
+          "$gcc"
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
+      },
+      {
+        "type": "shell",
+        "label": "g++-9 build active file",
+        "command": "/usr/bin/g++-9",
+        "args": [
+          "-g",
+          "${file}",
+          "-I /lib/ac-library",
+          "-I /root/library/ac-library",
+          "-o",
+          "${workspaceFolder}/problem"
+        ],
+        "options": {
+          "cwd": "/usr/bin"
+        }
+      }
+    ]
+  }
