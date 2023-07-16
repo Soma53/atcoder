@@ -21,17 +21,16 @@ int main(){
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
             if(i==j) continue;
-            if((product[i].second & product[j].second) == product[j].second){
-                if(product[i].first < product[j].first){
-                    cout << "Yes" << endl;
-                    return 0;
-                }
-                else if(product[i].first == product[j].first){
-                    if((product[i].second ^ product[j].second).any()){
-                        cout << "Yes" << endl;
-                        return 0;
-                    }
-                }
+            bool flag1=false, flag2=false, flag3=false;
+
+            if(product[i].first>=product[j].first) flag1=true;
+            if((product[j].second & product[i].second) == product[i].second) flag2=true;
+            if(product[i].first>product[j].first || (product[j].second & ~product[i].second).any()) flag3=true;
+
+            cout << flag1 << ", " << flag2 << ", " << flag3 << endl;
+            if(flag1 && flag2 && flag3){
+                cout << "Yes" << endl;
+                return 0;
             }
         }
     }
