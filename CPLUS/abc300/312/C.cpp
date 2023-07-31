@@ -12,6 +12,18 @@ bool chmax(T &a, const T& b) {if (a < b) {a = b;return true;}return false;}
 template <typename T>
 bool chmin(T &a, const T& b) {if (a > b) {a = b;return true;}return false;}
 
+// f(x)-g(x)の単調性から以下のコードが簡潔
+// int main(){
+//     int N, M;
+//     cin >> N >> M;
+//     vector<int> A(N+M);
+//     for(int i=0; i<N; i++) cin >> A[i];
+//     for(int i=0; i<M; i++){cin >> A[i+N]; A[i+N]++;}
+
+//     sort(A.begin(), A.end());
+//     cout << A[M-1] << endl;
+// }
+
 int main()
 {
     int N, M;
@@ -24,18 +36,18 @@ int main()
     sort(A.begin(), A.end());
     sort(B.begin(), B.end());
 
-    for(int i=0; i<N; i++){
-        auto it = upper_bound(B.begin(), B.end(), A[i]);
-        int j = B.end() - it;
-        // cout << i+1 << ", " << j << endl;
-        if(A[i] > B[M-1]){
-            cout << B[M-1] + 1 << endl;
-            return 0;
-        };
-        if(i + 1 >= j){
-            cout << A[i] << endl;
-            return 0;
-        }
+    int l = 0, r = 1e9+7;
+    while(l+1<r){
+        int mid = (l+r)/2;
+        int i=0, j=0;
+        for(int a:A) if(a <= mid) i++;
+        for(int b:B) if(b >= mid) j++;
+
+        if(i >= j) r = mid;
+        else l = mid;
     }
+
+    cout << r << endl;
+
     return 0;
 }
