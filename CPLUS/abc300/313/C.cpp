@@ -15,40 +15,20 @@ bool chmin(T &a, const T& b) {if (a > b) {a = b;return true;}return false;}
 int main()
 {
     int N; cin >> N;
-    vector<ll> a(N), b(N);
-    ll mean = 0;
+    vector<ll> a(N);
+    ll sum = 0;
     rep(i, N){
         cin >> a[i];
-        b[i] = a[i];
-        mean += a[i];
+        sum += a[i];
     }
-    mean /= N;
 
     sort(a.begin(), a.end());
-    sort(b.rbegin(), b.rend());
-    
+    vector<ll> b(N, sum/N);
+    rep(i, sum%N) b[N-i-1]++;
 
     ll ans = 0;
-    bool flag = true;
-    while(flag){
-        flag = false;
-        int idx = 0;
-        while(a[idx] < b[idx]){
-            ll temp = abs(a[idx]-b[idx])/2;
-            if(temp > abs(a[idx]-mean)) temp = abs(a[idx]-mean);
-            a[idx] += temp; b[N-idx-1] += temp;
-            b[idx] -= temp; a[N-idx-1] -= temp;
-            if(temp != 0){
-                ans += temp;
-                flag = true;
-            }
-            idx++;
-        }
-        sort(a.begin(), a.end());
-        sort(b.rbegin(), b.rend());
-    }
-
-    cout << ans << endl;
+    rep(i, N) ans += abs(a[i]-b[i]);
+    cout << ans/2 << endl;
 
     return 0;
 }
